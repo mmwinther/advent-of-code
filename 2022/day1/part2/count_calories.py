@@ -1,5 +1,5 @@
-from pathlib import Path
 import os
+from pathlib import Path
 
 
 def main(file_name):
@@ -14,8 +14,10 @@ def main(file_name):
             else:
                 calories_per_elf[elf] += int(line.strip())
 
-        print(f"Max calories: {max(calories_per_elf)}\nOverview:{calories_per_elf}")
+        calories_per_elf.sort()
+        top_3 = calories_per_elf[-3:]
+        print(f"Top 3 elves: {top_3}\nSum: {sum(top_3)}\nOverview:{calories_per_elf}")
 
 
 if __name__ == "__main__":
-    main("calories.txt")
+    main("test.txt")
