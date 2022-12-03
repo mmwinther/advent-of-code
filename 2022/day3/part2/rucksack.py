@@ -1,22 +1,16 @@
-from dataclasses import dataclass
-from enum import Enum, auto
 import os
 from pathlib import Path
 import re
-from typing import List, Optional, Set, Tuple
+from typing import List, Set
 
 
 ITEM_PRIORITY = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 
 def find_common_item(elf_group: List[str]) -> str:
-    common: Set = set()
+    common: Set = {char for char in elf_group.pop()}
     for group in elf_group:
-        group = {char for char in group}
-        if common:
-            common = common.intersection(group)
-        else:
-            common = group
+        common = common.intersection({char for char in group})
     return common.pop()
 
 
@@ -25,7 +19,7 @@ def get_item_value(item: str) -> int:
 
 
 def group_full(index: int) -> bool:
-    return index % 3 == 0
+    return (index + 1) % 3 == 0
 
 
 def main(file_name):
@@ -35,7 +29,7 @@ def main(file_name):
     with open(data_file) as f:
         for i, sack in enumerate(f.readlines()):
             current_group.append(sack.strip())
-            if group_full(i + 1):
+            if group_full(i):
                 common_item = find_common_item(current_group)
                 priority_sum += get_item_value(common_item)
                 current_group = []
