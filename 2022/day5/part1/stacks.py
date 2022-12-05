@@ -1,10 +1,7 @@
-from dataclasses import dataclass
-from enum import Enum, auto
 import os
 from pathlib import Path
 import re
-from pprint import pprint
-from typing import List, Optional, Tuple
+from typing import List
 
 
 def add_stack_if_needed(stacks: List[List[str]], i: int) -> List[List[str]]:
